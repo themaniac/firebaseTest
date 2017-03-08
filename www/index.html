@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+
+<head>
+    <!--
+        Customize this policy to fit your own app's needs. For more guidance, see:
+            https://github.com/apache/cordova-plugin-whitelist/blob/master/README.md#content-security-policy
+        Some notes:
+            * gap: is required only on iOS (when using UIWebView) and is needed for JS->native communication
+            * https://ssl.gstatic.com is required only on Android and is needed for TalkBack to function properly
+            * Disables use of inline scripts in order to mitigate risk of XSS vulnerabilities. To change this:
+                * Enable inline JS: add 'unsafe-inline' to default-src
+        -->
+    <meta name="format-detection" content="telephone=no">
+    <meta name="msapplication-tap-highlight" content="no">
+    <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+    <link rel="stylesheet" type="text/css" href="css/index.css">
+    <title>Firebase Auth, Db e Storage</title>
+
+    <!-- Include jQuery Mobile stylesheets -->
+    <link rel="stylesheet" href="css/jquery.mobile.min.css">
+
+    <!-- Include the jQuery library -->
+    <script type="text/javascript" src="js/jquery.min.js"></script>
+
+    <!-- Include the jQuery Mobile library -->
+    <script type="text/javascript" src="js/jquery.mobile.min.js"></script>
+
+    <!-- Include page logic -->
+    <script type="text/javascript" src="js/index.js"></script>
+
+    <!-- Include Firebase -->
+    <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase.js"></script>
+
+    <script type="text/javascript">
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyD0cPhkps8kV9FDOxpoR0cWjIVhLR5slEo",
+            authDomain: "vital-cathode-156913.firebaseapp.com",
+            databaseURL: "https://vital-cathode-156913.firebaseio.com",
+            storageBucket: "vital-cathode-156913.appspot.com"
+        };
+        firebase.initializeApp(config);
+    </script>
+
+</head>
+
+<body>
+    <div data-role="page" id="home">
+        <div data-role="panel" id="panelHome">
+            <h3>Menu</h3>
+            <ul data-role="listview">
+                <li id="signupMenu"><a href="#signup">Registrati</a></li>
+                <li id="signinMenu"><a href="#signin">Accedi</a></li>
+                <li id="iscrizioneMenu"><a href="#iscrizione">Iscrizione</a></li>
+                <li id="elencoMenu"><a href="#elenco">Elenco</a></li>
+                <li id="signoutMenu"><a href="#" onclick="signOut()">Disconnetti</a></li>
+            </ul>
+        </div>
+        <div data-role="header" data-position="fixed">
+            <a href="#panelHome" class="ui-btn ui-btn-left ui-btn-icon-left ui-icon-bars">Menu</a>
+            <h1>Calcetto</h1>
+        </div>
+        <div data-role="main" class="ui-content">
+
+        </div>
+        <div data-role="footer" data-position="fixed">
+            Test test test
+        </div>
+    </div>
+
+    <div data-role="page" id="signup">
+        <div data-role="header" data-position="fixed">
+            <a href="#" data-rel="back" class="ui-btn ui-btn-left ui-btn-icon-left ui-icon-back">Indietro</a>
+            <h1>Login</h1>
+        </div>
+        <div data-role="main" class="ui-content">
+            <h2>Registrati</h2>
+            <form id="signup">
+                <div class="ui-field-contain">
+                    <input type="text" name="email" id="email" placeholder="email">
+                    <input type="password" name="password" id="password" placeholder="password">
+                    <input type="submit" value="Registrati" class="ui-btn">
+                </div>
+            </form>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            Test test test
+        </div>
+    </div>
+
+    <div data-role="page" id="signin">
+        <div data-role="header" data-position="fixed">
+            <a href="#" data-rel="back" class="ui-btn ui-btn-left ui-btn-icon-left ui-icon-back">Indietro</a>
+            <h1>Accedi</h1>
+        </div>
+        <div data-role="main" class="ui-content">
+            <h2>Accedi</h2>
+            <form id="signin">
+                <div class="ui-field-contain">
+                    <input type="text" name="email2" id="email2" placeholder="email">
+                    <input type="password" name="password2" id="password2" placeholder="password">
+                    <input type="submit" value="Accedi" class="ui-btn">
+                </div>
+            </form>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            Test test test
+        </div>
+    </div>
+
+    <div data-role="page" id="iscrizione">
+        <div data-role="header" data-position="fixed">
+            <a href="#" data-rel="back" class="ui-btn ui-btn-left ui-btn-icon-left ui-icon-back">Indietro</a>
+            <h1>Iscrizione</h1>
+        </div>
+        <div data-role="main" class="ui-content">
+            <h2>Inserisci nuovo giocatore</h2>
+            <form id="inserisciGiocatore">
+                <div class="ui-field-contain">
+                    <input type="text" name="nome" id="nome" placeholder="Nome">
+                    <input type="text" name="telefono" id="telefono" placeholder="Telefono">
+                    <input type="text" name="email" id="email" placeholder="email">
+                    <select name="ruolo" id="ruolo">
+                            <option value="-1">Ruolo...</option>
+                            <option value="P">Portiere</option>
+                            <option value="D">Difensore</option>
+                            <option value="C">Centrocampista</option>
+                            <option value="A">Attaccante</option>
+                        </select>
+                    <input type="submit" value="Salva" class="ui-btn">
+                </div>
+            </form>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            Test test test
+        </div>
+    </div>
+
+    <div data-role="page" id="elenco">
+        <div data-role="header" data-position="fixed">
+            <a href="#" data-rel="back" class="ui-btn ui-btn-left ui-btn-icon-left ui-icon-back">Indietro</a>
+        </div>
+        <div data-role="main" class="ui-content">
+            <h1>Elenco</h1>
+            <ul id="listaGiocatori" data-role='listview' data-inset="true"></ul>
+        </div>
+        <div data-role="footer" data-position="fixed">
+            Test test test
+        </div>
+    </div>
+</body>
+
+</html>
