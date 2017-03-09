@@ -51,7 +51,6 @@
     <script src="https://www.gstatic.com/firebasejs/3.6.10/firebase.js"></script>
 
     <script type="text/javascript">
-        // Initialize Firebase
         var config = {
             apiKey: "AIzaSyD0cPhkps8kV9FDOxpoR0cWjIVhLR5slEo",
             authDomain: "vital-cathode-156913.firebaseapp.com",
@@ -60,6 +59,40 @@
         };
         firebase.initializeApp(config);
     </script>
+
+    <!-- Facebook Login -->
+    <script src="https://connect.facebook.net/it_IT/sdk.js"></script>
+
+    <script>
+        FB.init({
+            appId: '1928576104027934',
+            status: true,
+            xfbml: true,
+            version: 'v2.6'
+        });
+
+        FB.Event.subscribe('auth.authResponseChange', checkLoginState);
+    </script>
+
+    <!-- <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: '1928576104027934',
+                xfbml: true,
+                version: 'v2.8'
+            });
+            FB.AppEvents.logPageView();
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) { return; }
+            js = d.createElement(s); js.id = id;
+            js.src = "https://connect.facebook.net/it_IT/sdk.js";
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+
+    </script>-->
 
 </head>
 
@@ -72,12 +105,12 @@
                 <li id="signinMenu"><a href="#signin">Accedi</a></li>
                 <li id="iscrizioneMenu"><a href="#iscrizione">Iscrizione</a></li>
                 <li id="elencoMenu"><a href="#elenco">Elenco</a></li>
-                <li id="signoutMenu"><a href="#" onclick="signOut()">Disconnetti</a></li>
+                <li id="signoutMenu"><a id="signOut">Disconnetti</a></li>
             </ul>
         </div>
         <div data-role="header" data-position="fixed">
             <a href="#panelHome" class="ui-btn ui-btn-left ui-btn-icon-left ui-icon-bars">Menu</a>
-            <h1>Calcetto</h1>
+            <h1>Firebase Auth, Db e Storage</h1>
         </div>
         <div data-role="main" class="ui-content">
 
@@ -113,7 +146,7 @@
             <h1>Accedi</h1>
         </div>
         <div data-role="main" class="ui-content">
-            <h2>Accedi</h2>
+            <h2>Accedi con email</h2>
             <form id="signin">
                 <div class="ui-field-contain">
                     <input type="text" name="email2" id="email2" placeholder="email">
@@ -121,6 +154,16 @@
                     <input type="submit" value="Accedi" class="ui-btn">
                 </div>
             </form>
+            <div>
+                <p>
+                    O accedi con :
+                </p>
+                <fb:login-button data-auto-logout-link="true" scope="public_profile,email" size="large"></fb:login-button>
+                <!-- <div class="fb-login-button" data-max-rows="1" data-size="icon" data-show-faces="false" data-auto-logout-link="false"></div> -->
+                <div><button id="signInFB" href="#" class="ui-btn">Facebook</button></div>
+                <div><button id="signInGo" href="#" class="ui-btn">Google</button></div>
+                <div><button id="signInTw" href="#" class="ui-btn">Twitter</button></div>
+            </div>
         </div>
         <div data-role="footer" data-position="fixed">
             Test test test
